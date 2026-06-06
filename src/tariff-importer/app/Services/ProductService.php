@@ -8,7 +8,7 @@ class ProductService
      * Get product reference map for a provider.
      *
      * @param int $providerId
-     * @return array<string,int>
+     * @return array
      */
     public static function getReferenceMap(int $providerId): array
     {
@@ -21,7 +21,7 @@ class ProductService
      * Get products maped key value.
      *
      * @param array $newProducts
-     * @return array<string,int>
+     * @return array
      */
     public static function insertAndGetMappedProducts(
         array $newProducts
@@ -35,8 +35,8 @@ class ProductService
     /**
      * Get products map for a provider.
      *
-     * @param int $providerId
-     * @return array<string,int>
+     * @param array $products
+     * @return array
      */
     public static function getProductsMap(array $products): array
     {
@@ -57,18 +57,14 @@ class ProductService
      *   - reference (string, optional): filter by product reference.
      * @param int $limit
      *   Maximum number of records per page (default 100, capped at 200).
-     * @param int|null $lastId
-     *   Last product ID from previous page, used as cursor.
-     *
+
      * @return array
      *   - data: list of products
-     *   - next_last_id: ID to use for next page
      *   - has_more: boolean indicating if more records exist
      */
     public function search(
         array $filters,
-        int $limit = 10,
-        ?int $lastId = null
+        int $limit = 10
     ): array
     {
         $limit = min($limit, 200);
@@ -89,7 +85,6 @@ class ProductService
             !empty($filters['reference']),
             fn($q) => $q->where('reference', $filters['reference'])
         );
-        $query->when($lastId, fn($q) => $q->where('id', '>', $lastId));
 
         $products = $query->get();
         $hasMore = $products->count() > $limit;
@@ -100,9 +95,6 @@ class ProductService
 
         return [
             'data' => $products->values(),
-            'next_last_id' => $products->isNotEmpty()
-                ? $products->last()->id
-                : null,
             'has_more' => $hasMore,
         ];
     }

@@ -20,8 +20,6 @@ class ProviderFormat extends Model
      *
      * @param int $providerId The provider identifier.
      * @return ProviderFormat|null The provider format configuration instance.
-     *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public static function byProvider(int $providerId): ?ProviderFormat
     {
@@ -47,7 +45,7 @@ class ProviderFormat extends Model
      * with a boolean flag. This allows quick validation
      * against Excel headers or row values.
      *
-     * @return array<string,bool>
+     * @return array
      */
     public function columnsMap(): array
     {
@@ -73,7 +71,7 @@ class ProviderFormat extends Model
      * - "10+"     => ['min' => 10, 'max' => '-1']   // 10 or more
      *
      * @param string $text Quantity cell value from Excel
-     * @return array{min:int|null,max:int|string|null}
+     * @return array
      */
    public  function parseQuantityRange(string $text): array
    {

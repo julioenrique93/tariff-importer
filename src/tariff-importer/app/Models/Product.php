@@ -3,10 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
+    protected $fillable = [
+        'reference',
+        'brand',
+        'ean',
+        'description',
+        'dimensions',
+        'family_and_subfamily',
+        'provider_id',
+    ];
     public function provider() {
         return $this->belongsTo(User::class, 'provider_id');
     }
@@ -19,7 +27,7 @@ class Product extends Model
      * Select only id and reference for a provider.
      *
      * @param int $providerId
-     * @return \Illuminate\Support\Collection
+     * @return array
      */
     public static function queryReferenceIdsByProvider(int $providerId): array
     {
@@ -50,7 +58,7 @@ class Product extends Model
      * Get all products for a provider mapped by reference.
      *
      * @param int $providerId
-     * @return array reference => id
+     * @return array
      */
     public static function getMapByProvider(int $providerId): array
     {
@@ -64,7 +72,8 @@ class Product extends Model
      * Get all products for a provider mapped by reference.
      *
      * @param int $providerId
-     * @return array reference => id
+     * @param array $productIds
+     * @return array
      */
     public static function getMapByProviderAndProducts(
         int $providerId,

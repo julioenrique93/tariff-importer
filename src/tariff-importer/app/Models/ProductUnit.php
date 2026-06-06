@@ -48,8 +48,8 @@ class ProductUnit extends Model
     /**
      * Get all product units for a products mapped.
      *
-     * @param array $productIds
-     * @param array $productUnitsIds
+     * @param array $newProductUnits
+     * @param array $productsId
      * @return array
      */
     public static function insertManyAndGetKeyValues(

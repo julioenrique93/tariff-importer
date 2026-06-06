@@ -26,9 +26,8 @@ class ProductController extends Controller
     ): JsonResponse {
         $filters = $request->only(['brand', 'reference']);
         $limit = (int) $request->query('limit', 100);
-        $lastId = $request->query('last_id');
 
-        $result = $service->search($filters, $limit, $lastId);
+        $result = $service->search($filters, $limit);
 
         return response()->json($result);
     }

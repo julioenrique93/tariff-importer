@@ -30,10 +30,10 @@ class ProductUnitService
      * The map key is a concatenation of product_id and unit,
      * formatted as "product_id|unit". The value is the product_unit ID.
      *
-     * @param array<int> $productIds
+     * @param array $productIds
      *   List of product IDs to fetch units for.
      *
-     * @return array<string,int>
+     * @return array
      *   Associative array mapping "product_id|unit" to product_unit_id.
      */
     public function getUnitMap(array $productIds): array
@@ -60,8 +60,8 @@ class ProductUnitService
      * The map key is built using ProductUnit::buildKey(product_id, unit),
      * formatted as "product_id|unit". The value is the product_unit ID.
      *
-     * @param array $productIds
-     * @param array $productUnitsIds
+     * @param array $newProductsUnit
+     * @param array $productsId
      * @return array
      *   Associative array mapping "product_id|unit" to product_unit_id.
      */
