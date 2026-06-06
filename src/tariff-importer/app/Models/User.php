@@ -34,7 +34,7 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
-    public function providerFormats(): HasOne {
+    public function providerFormats() {
         return $this->hasOne(ProviderFormat::class);
     }
 }
