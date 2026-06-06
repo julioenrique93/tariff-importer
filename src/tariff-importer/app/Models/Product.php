@@ -34,9 +34,9 @@ class Product extends Model
      *
      * @param array $newProducts
      *   An array of associative arrays, each containing product attributes.
-     * @return void
+     * @return array
      */
-    public static function insertManyAndGetKeyValues(array $newProducts)
+    public static function insertManyAndGetKeyValues(array $newProducts): array
     {
         self::insert($newProducts);
 
