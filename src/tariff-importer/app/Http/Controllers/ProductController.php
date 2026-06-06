@@ -4,9 +4,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Services\ExcelImporterService;
+use App\Models\Product;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
+    /**
+     * List imported products with seek-based pagination.
+     *
+     * Query params:
+     * - brand (string, optional): filter by brand.
+     * - reference (string, optional): filter by reference.
+     * - limit (int, optional): page size (default 100, capped at 200).
+     * - last_id (int, optional): cursor for next page.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(
+        Request        $request,
+        ProductService $service
+    ): JsonResponse {
+        $filters = $request->only(['brand', 'reference']);
+        $limit = (int) $request->query('limit', 100);
+        $lastId = $request->query('last_id');
+
+        $result = $service->search($filters, $limit, $lastId);
+
+        return response()->json($result);
+    }
+
     /**
      * Import products from an Excel file.
      *

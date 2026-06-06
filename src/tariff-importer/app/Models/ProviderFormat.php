@@ -70,7 +70,7 @@ class ProviderFormat extends Model
      * Supported formats:
      * - "1"       => ['min' => 1, 'max' => null]   // exact start, open end
      * - "1-10"    => ['min' => 1, 'max' => 10]     // closed range
-     * - "10+"     => ['min' => 10, 'max' => '*']   // 10 or more
+     * - "10+"     => ['min' => 10, 'max' => '-1']   // 10 or more
      *
      * @param string $text Quantity cell value from Excel
      * @return array{min:int|null,max:int|string|null}
